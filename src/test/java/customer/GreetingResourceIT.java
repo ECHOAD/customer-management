@@ -1,4 +1,4 @@
-package echoad.customers;
+package customer;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
