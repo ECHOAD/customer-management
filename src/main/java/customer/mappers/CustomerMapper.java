@@ -23,7 +23,7 @@ public final class CustomerMapper {
     }
 
     public static Customer toEntity(final CreateCustomerCommand createCustomerCommand) {
-        return new Customer(0L, createCustomerCommand.getFirstName(), createCustomerCommand.getMiddleName(),
+        return new Customer(null, createCustomerCommand.getFirstName(), createCustomerCommand.getMiddleName(),
                 createCustomerCommand.getFirstLastName(), createCustomerCommand.getSecondLastName(), createCustomerCommand.getEmail(),
                 createCustomerCommand.getAddress(), createCustomerCommand.getPhoneNumber(), createCustomerCommand.getCountry(), null);
     }
