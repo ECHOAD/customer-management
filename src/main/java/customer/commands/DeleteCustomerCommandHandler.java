@@ -1,17 +1,12 @@
 package customer.commands;
 
 import customer.domain.Customer;
-import customer.dto.CustomerResponseDTO;
-import customer.exception.CustomerUpdateException;
-import customer.mappers.CustomerMapper;
 import customer.repository.CustomerPanacheRepository;
-import external.client.country.service.CountryService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import mediator.CommandHandler;
 
-import java.util.Objects;
 
 @ApplicationScoped
 public class DeleteCustomerCommandHandler implements CommandHandler<DeleteCustomerCommand, Void> {

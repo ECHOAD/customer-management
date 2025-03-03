@@ -15,14 +15,14 @@ import java.time.LocalDateTime;
  * This class is responsible for mapping exceptions to HTTP responses.
  * It uses RESTEasy Reactive's ServerExceptionMapper to handle exceptions
  * and transform them into appropriate HTTP response entities.
- *
+ * <p>
  * The class handles the following exceptions:
  * 1. RuntimeException: Maps to a 500 Internal Server Error response.
  * 2. InternalServerErrorException: Maps to a 500 Internal Server Error response.
- *
+ * <p>
  * Each method logs the exception details and returns an ExceptionResponseDTO
  * containing the error message, HTTP status code, and a timestamp.
- *
+ * <p>
  * Logger is utilized to log error messages for tracking and debugging purposes.
  */
 public class CustomerExceptionMapper {

@@ -1,7 +1,6 @@
 package customer.api.v1;
 
 import customer.commands.*;
-import customer.domain.Customer;
 import customer.dto.CustomerResponseDTO;
 import customer.dto.PaginatedResponse;
 import customer.queries.GetCustomersQuery;

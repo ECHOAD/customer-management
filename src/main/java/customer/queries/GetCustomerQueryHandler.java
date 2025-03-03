@@ -41,11 +41,6 @@ public class GetCustomerQueryHandler implements QueryHandler<GetCustomersQuery, 
                 .filter(e -> e.getValue() != null)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-        if (params.isEmpty()) {
-            PanacheQuery<Customer> allCustomerQuery = customerRepository.findAll()
-                    .page(Page.of(getCustomersQuery.getPage() - 1, getCustomersQuery.getLimit()));
-
-        }
 
         String query = params.keySet().stream()
                 .map(o -> o + "=:" + o)
