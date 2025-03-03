@@ -49,7 +49,7 @@ public class Customer implements Serializable {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "country", nullable = false, columnDefinition = "VARCHAR(2)")
+    @Column(name = "country", nullable = false)
     private String country;
 
     @Column(name = "demonym", nullable = false)

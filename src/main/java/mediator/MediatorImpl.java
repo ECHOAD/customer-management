@@ -1,5 +1,6 @@
 package mediator;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 
@@ -7,6 +8,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
 public class MediatorImpl implements Mediator{
     private final Map<Class<?>, Function<?, ?>> commandHandlers;
     private final Map<Class<?>, Function<?, ?>> queryHandlers;
