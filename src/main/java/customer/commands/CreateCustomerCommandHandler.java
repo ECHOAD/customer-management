@@ -55,6 +55,7 @@ public class CreateCustomerCommandHandler implements CommandHandler<CreateCustom
             Customer customer = CustomerMapper.toEntity(createCustomerCommand);
             customer.setDemonym(countryService.findDemonymByCountryCode(createCustomerCommand.getCountry()));
             customerRepository.persistAndFlush(customer);
+
             return CustomerMapper.toDTO(customer);
 
         } catch (CountryClientException e) {

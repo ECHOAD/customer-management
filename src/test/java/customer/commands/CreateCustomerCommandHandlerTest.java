@@ -2,7 +2,6 @@ package customer.commands;
 
 import customer.dto.CustomerResponseDTO;
 import customer.exception.CustomerCreationException;
-import customer.repository.CustomerPanacheRepository;
 import external.client.country.dto.CountryDemonymDto;
 import external.client.country.dto.CountryDto;
 import external.client.country.dto.CountryName;
@@ -14,6 +13,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 
 import java.util.Map;
@@ -22,11 +22,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @QuarkusTest
 public class CreateCustomerCommandHandlerTest {
-
-    @Inject
-    CustomerPanacheRepository customerPanacheRepository;
 
     CountryService countryService;
 
@@ -35,7 +33,6 @@ public class CreateCustomerCommandHandlerTest {
 
     @BeforeEach
     void setup() {
-
         countryService = mock(CountryServiceImpl.class);
 
         // Simulated country data

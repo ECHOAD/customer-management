@@ -27,8 +27,8 @@ public class GetCustomerQueryHandlerTest {
     void setup() {
         customerPanacheRepository.deleteAll();
 
-        customerPanacheRepository.persist(CustomerFactory
-                .newInstance("Adrian",
+        customerPanacheRepository.persistAndFlush(CustomerFactory
+                .newInstance(null,"Adrian",
                         "Estevez",
                         "adrian@test.com",
                         "Street 123",
@@ -36,8 +36,8 @@ public class GetCustomerQueryHandlerTest {
                         "DO",
                         "Dominican"));
 
-        customerPanacheRepository.persist(CustomerFactory
-                .newInstance("John",
+        customerPanacheRepository.persistAndFlush(CustomerFactory
+                .newInstance(null,"John",
                         "Doe",
                         "john@test.com",
                         "Street 123",
@@ -45,8 +45,8 @@ public class GetCustomerQueryHandlerTest {
                         "US",
                         "American"));
 
-        customerPanacheRepository.persist(CustomerFactory
-                .newInstance("Jane",
+        customerPanacheRepository.persistAndFlush(CustomerFactory
+                .newInstance(null,"Jane",
                         "Smith",
                         "jane@test.com",
                         "Street 123",

@@ -3,6 +3,7 @@ package customer.api.v1;
 import customer.commands.*;
 import customer.dto.CustomerResponseDTO;
 import customer.dto.PaginatedResponse;
+import customer.queries.GetCustomerQueryById;
 import customer.queries.GetCustomersQuery;
 import io.smallrye.common.constraint.NotNull;
 import jakarta.inject.Inject;
@@ -55,6 +56,16 @@ public class CustomerResource {
         return Response.ok(mediator.send(getCustomersQuery)).build();
     }
 
+    @GET
+    @Path("/{id}")
+    @APIResponse(responseCode = "200", description = "A customer",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(implementation = PaginatedResponse.class)))
+    @APIResponse(responseCode = "400", description = "Invalid input")
+    public Response getCustomerById(@BeanParam GetCustomerQueryById getCustomerQueryById) {
+        return Response.ok(mediator.send(getCustomerQueryById)).build();
+    }
+
     @POST
     @APIResponse(responseCode = "201", description = "The created customer",
                  content = @Content(mediaType = MediaType.APPLICATION_JSON,
@@ -69,8 +80,8 @@ public class CustomerResource {
     @Path("/{id}")
     @APIResponse(responseCode = "200", description = "Customer deleted successfully")
     @APIResponse(responseCode = "400", description = "Invalid input")
-    public Response deleteCustomer(@Valid DeleteCustomerCommand deleteCustomerCommand) {
-        return Response.ok(mediator.send(deleteCustomerCommand)).build();
+    public Response deleteCustomer(@NotNull @PathParam("id") Long id) {
+        return Response.ok(mediator.send(new DeleteCustomerCommand(id))).build();
     }
 
     @PUT

@@ -19,14 +19,17 @@ public final class CustomerFactory {
      * @param demonym       the demonym of the customer
      * @return a new Customer instance
      */
-    public static Customer newInstance(String firstName,
-                                       String firstLastName,
-                                       String email,
-                                       String address,
-                                       String phoneNumber,
-                                       String country,
-                                       String demonym) {
+    public static Customer newInstance(
+            Long id,
+            String firstName,
+            String firstLastName,
+            String email,
+            String address,
+            String phoneNumber,
+            String country,
+            String demonym) {
         return Customer.builder()
+                .id(id)
                 .firstName(firstName)
                 .firstLastName(firstLastName)
                 .email(email)

@@ -62,7 +62,7 @@ public class UpdateCustomerCommandHandler implements CommandHandler<UpdateCustom
             updateCustomerDemonym(updateCustomerCommand, customer);
         }
 
-        customerRepository.persist(customer);
+        customerRepository.persistAndFlush(customer);
 
         return CustomerMapper.toDTO(customer);
     }

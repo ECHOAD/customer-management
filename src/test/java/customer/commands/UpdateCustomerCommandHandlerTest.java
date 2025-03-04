@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+
 @QuarkusTest
 public class UpdateCustomerCommandHandlerTest {
 
@@ -39,8 +40,8 @@ public class UpdateCustomerCommandHandlerTest {
 
         customerPanacheRepository.deleteAll();
 
-        customerPanacheRepository.persist(CustomerFactory
-                .newInstance("Adrian",
+        customerPanacheRepository.persistAndFlush(CustomerFactory
+                .newInstance(null,"Adrian",
                         "Estevez",
                         "adrian@test.com",
                         "Street 123",
@@ -68,15 +69,15 @@ public class UpdateCustomerCommandHandlerTest {
     @Test
     public void testUpdateCustomerWithoutChangingCountry() {
         // Arrange
-        Customer outDatedCustomer = customerPanacheRepository.findById(1L);
+        Customer outDatedCustomer = customerPanacheRepository.findAll().firstResult();
 
         UpdateCustomerRequestDTO requestDTO = new UpdateCustomerRequestDTO();
-        requestDTO.setId(1L);
+        requestDTO.setId(outDatedCustomer.getId());
         requestDTO.setEmail("test@test.com");
         requestDTO.setAddress("Street 345");
         requestDTO.setPhoneNumber("0000000001");
         requestDTO.setCountry("DO");
-        UpdateCustomerCommand command = new UpdateCustomerCommand(1L, requestDTO);
+        UpdateCustomerCommand command = new UpdateCustomerCommand(outDatedCustomer.getId(), requestDTO);
 
 
         // Act
@@ -92,15 +93,15 @@ public class UpdateCustomerCommandHandlerTest {
     @Test
     public void testUpdateCustomerWhenCountryIsChanged() {
         // Arrange
-        Customer outDatedCustomer = customerPanacheRepository.findById(1L);
+        Customer outDatedCustomer = customerPanacheRepository.findAll().firstResult();
 
         UpdateCustomerRequestDTO requestDTO = new UpdateCustomerRequestDTO();
-        requestDTO.setId(1L);
+        requestDTO.setId(outDatedCustomer.getId());
         requestDTO.setEmail("test@test.com");
         requestDTO.setAddress("Street 345");
         requestDTO.setPhoneNumber("0000000001");
         requestDTO.setCountry("US");
-        UpdateCustomerCommand command = new UpdateCustomerCommand(1L, requestDTO);
+        UpdateCustomerCommand command = new UpdateCustomerCommand(outDatedCustomer.getId(), requestDTO);
 
 
         // Act

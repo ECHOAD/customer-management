@@ -1,80 +1,77 @@
-# customer-management
+# Customer Management System
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Description
+This project consists of developing a RESTful service for efficient customer management. The company faces difficulties in adding, updating, deleting, and querying customer information quickly and securely. The proposed solution enables CRUD operations on the customer list through a uniform and easy-to-use interface.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Features
+- **Complete customer management**: Allows creation, updating, deletion, and retrieval of customers.
+- **Data validation**: Implements validation mechanisms to ensure data integrity and reliability.
+- **API documentation**: Uses OpenAPI and Swagger UI for automatic documentation.
+- **Efficient persistence**: Employs Hibernate ORM with Panache to simplify interaction with the PostgreSQL database.
 
-## Running the application in dev mode
+## Functional Requirements
+1. **Create a new customer.**
+2. **Retrieve all existing customers.**
+3. **Retrieve all customers belonging to a specific country.**
+4. **Retrieve a specific customer by their ID.**
+5. **Update an existing customer**, allowing modifications to their email, address, phone, and country.
+6. **Delete a customer by their ID.**
 
-You can run your application in dev mode that enables live coding using:
+## Technologies Used
+- **Quarkus**: Framework for Java application development.
+- **Lombok** ([Guide](https://projectlombok.org/)): Generates repetitive code automatically.
+- **Hibernate Validator** ([Guide](https://quarkus.io/guides/validation)): Validates object properties and method parameters.
+- **SmallRye OpenAPI** ([Guide](https://quarkus.io/guides/openapi-swaggerui)): Documents REST APIs using OpenAPI and Swagger UI.
+- **REST Jackson** ([Guide](https://quarkus.io/guides/rest#json-serialisation)): JSON serialization support for Quarkus REST.
+- **Hibernate ORM with Panache** ([Guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplifies persistence in Hibernate ORM.
+- **JDBC Driver - PostgreSQL** ([Guide](https://quarkus.io/guides/datasource)): JDBC connector for PostgreSQL databases.
 
-```shell script
-./mvnw quarkus:dev
+## Installation & Configuration
+### Prerequisites
+- Java 17 or higher
+- Maven 3.8+
+- Docker (optional, for local PostgreSQL database)
+
+### Steps to Run the Project
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/user/customer-management.git
+   cd customer-management
+   ```
+2. **Build the project:**
+   ```sh
+   mvn clean install
+   ```
+3. **Run the application:**
+   ```sh
+   mvn quarkus:dev
+   ```
+
+## API Endpoints
+The API exposes the following endpoints for customer management:
+
+| Method  | Endpoint                         | Description |
+|---------|----------------------------------|-------------|
+| POST    | `/customers`                     | Creates a new customer. |
+| GET     | `/customers`                     | Retrieves all customers. |
+| GET     | `/customers?country={country}`   | Retrieves customers by country. |
+| GET     | `/customers/{id}`                | Retrieves a customer by ID. |
+| PUT     | `/customers/{id}`                | Updates an existing customer. |
+| DELETE  | `/customers/{id}`                | Deletes a customer by ID. |
+
+## API Documentation
+The API documentation is available in Swagger UI when the application is running:
+```
+http://localhost:8080/q/swagger-ui/
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+## Contributions
+Contributions are welcome. To contribute, follow these steps:
+1. Fork the repository.
+2. Create a new branch (`feature/new-feature`).
+3. Make your changes and commit them.
+4. Submit a pull request.
 
-## Packaging and running the application
+## License
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
-The application can be packaged using:
-
-```shell script
-./mvnw package
-```
-
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/customer-management-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- Hibernate Validator ([guide](https://quarkus.io/guides/validation)): Validate object properties (field, getter) and method parameters for your beans (REST, CDI, Jakarta Persistence)
-- JPAStreamer ([guide](https://quarkiverse.github.io/quarkiverse-docs/quarkus-jpastreamer/dev/)): Express your Hibernate queries as standard Java Streams
-- SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- JDBC Driver - MySQL ([guide](https://quarkus.io/guides/datasource)): Connect to the MySQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
-
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)

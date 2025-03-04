@@ -1,6 +1,7 @@
 package customer.commands;
 
 
+import customer.exception.CustomerDeleteException;
 import customer.factories.CustomerFactory;
 import customer.repository.CustomerPanacheRepository;
 import io.quarkus.test.TestTransaction;
@@ -11,7 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @QuarkusTest
 public class DeleteCustomerCommandHandlerTest {
@@ -24,13 +26,10 @@ public class DeleteCustomerCommandHandlerTest {
     @BeforeEach
     @Transactional
     void setup() {
-
-        customerPanacheRepository = spy(customerPanacheRepository);
-
         customerPanacheRepository.deleteAll();
 
-        customerPanacheRepository.persist(CustomerFactory
-                .newInstance("Adrian",
+        customerPanacheRepository.persistAndFlush(CustomerFactory
+                .newInstance(null, "Adrian",
                         "Estevez",
                         "adrian@test.com",
                         "Street 123",
@@ -43,13 +42,26 @@ public class DeleteCustomerCommandHandlerTest {
 
     @Test
     @TestTransaction
-    public void testUpdateCustomerWithoutChangingCountry() {
+    public void testDeleteCustomer() {
+        long lastId = customerPanacheRepository.findAll().firstResult().getId();
         // Arrange / Act
-        DeleteCustomerCommand command = new DeleteCustomerCommand(1L);
+        DeleteCustomerCommand command = new DeleteCustomerCommand(lastId);
 
         // Act
         sut.apply(command);
-        verify(customerPanacheRepository, times(1)).deleteById(1L);
+
+        // Assert
+        assertEquals(0, customerPanacheRepository.count(), "Customer should be deleted");
+    }
+
+    @Test
+    @TestTransaction
+    public void testDeleteCustomerWithInvalidId() {
+        // Arrange / Act
+        DeleteCustomerCommand command = new DeleteCustomerCommand(0L);
+
+        // Act & Assert
+        assertThrows(CustomerDeleteException.class, () -> sut.apply(command), "Expected CustomerDeleteException");
     }
 
 

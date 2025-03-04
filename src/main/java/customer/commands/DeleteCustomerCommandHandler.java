@@ -1,15 +1,22 @@
 package customer.commands;
 
 import customer.domain.Customer;
+import customer.dto.DeletedCustomerDTO;
+import customer.exception.CustomerDeleteException;
 import customer.repository.CustomerPanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import mediator.CommandHandler;
+import org.jboss.logging.Logger;
+
+import java.util.Optional;
 
 
 @ApplicationScoped
-public class DeleteCustomerCommandHandler implements CommandHandler<DeleteCustomerCommand, Void> {
+public class DeleteCustomerCommandHandler implements CommandHandler<DeleteCustomerCommand, DeletedCustomerDTO> {
+    private final static Logger logger = Logger.getLogger(DeleteCustomerCommandHandler.class);
+
     private final CustomerPanacheRepository customerRepository;
 
     @Inject
@@ -25,9 +32,15 @@ public class DeleteCustomerCommandHandler implements CommandHandler<DeleteCustom
 
     @Override
     @Transactional
-    public Void apply(DeleteCustomerCommand updateCustomerCommand) {
-        Customer customer = customerRepository.findById(updateCustomerCommand.getId());
-        customerRepository.delete(customer);
-        return null;
+    public DeletedCustomerDTO apply(DeleteCustomerCommand deleteCustomerCommand) {
+        Optional<Customer> optionalCustomer = customerRepository.findByIdOptional(deleteCustomerCommand.getId());
+
+        if (optionalCustomer.isEmpty()) {
+            logger.error("(DeleteCustomerCommandHandler - apply) Customer not found");
+            throw new CustomerDeleteException("Customer not found");
+        }
+        customerRepository.delete(optionalCustomer.get());
+        customerRepository.flush();
+        return new DeletedCustomerDTO(deleteCustomerCommand.getId(), "Customer deleted successfully");
     }
 }

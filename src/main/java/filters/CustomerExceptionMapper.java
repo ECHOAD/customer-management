@@ -1,6 +1,7 @@
 package filters;
 
 import customer.exception.CustomerCreationException;
+import customer.exception.CustomerDeleteException;
 import customer.exception.CustomerUpdateException;
 import exceptions.ExceptionResponseDTO;
 import exceptions.InternalServerErrorException;
@@ -27,32 +28,38 @@ import java.time.LocalDateTime;
  */
 public class CustomerExceptionMapper {
     private final static Logger logger = Logger.getLogger(CustomerExceptionMapper.class);
-
     @ServerExceptionMapper(priority = 5)
     public RestResponse<ExceptionResponseDTO> mapRuntimeExceptionException(RuntimeException ex) {
         final var response = new ExceptionResponseDTO(ex.getMessage(), Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), LocalDateTime.now());
-        logger.error("(mapExecutionTimeoutException) response: %s", response, ex);
+        logger.error("(mapRuntimeExceptionException) response: %s", response, ex);
+        return RestResponse.status(Response.Status.INTERNAL_SERVER_ERROR, response);
+    }
+
+    @ServerExceptionMapper(priority = 4)
+    public RestResponse<ExceptionResponseDTO> mapInternalServerErrorException(InternalServerErrorException ex) {
+        final var response = new ExceptionResponseDTO(ex.getMessage(), Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), LocalDateTime.now());
+        logger.error("(mapInternalServerErrorException) response: %s", response, ex);
         return RestResponse.status(Response.Status.INTERNAL_SERVER_ERROR, response);
     }
 
     @ServerExceptionMapper(priority = 3)
-    public RestResponse<ExceptionResponseDTO> mapInternalServerErrorException(InternalServerErrorException ex) {
-        final var response = new ExceptionResponseDTO(ex.getMessage(), Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), LocalDateTime.now());
-        logger.error("(mapExecutionTimeoutException) response: %s", response, ex);
-        return RestResponse.status(Response.Status.INTERNAL_SERVER_ERROR, response);
-    }
-
-    @ServerExceptionMapper(priority = 2)
-    public RestResponse<ExceptionResponseDTO> mapException(CustomerCreationException ex) {
+    public RestResponse<ExceptionResponseDTO> mapCustomerCreationException(CustomerCreationException ex) {
         final var response = new ExceptionResponseDTO(ex.getMessage(), Response.Status.BAD_REQUEST.getStatusCode(), LocalDateTime.now());
         logger.error("(createCustomer) response: %s", response, ex);
         return RestResponse.status(Response.Status.BAD_REQUEST, response);
     }
 
     @ServerExceptionMapper(priority = 2)
-    public RestResponse<ExceptionResponseDTO> mapException(CustomerUpdateException ex) {
+    public RestResponse<ExceptionResponseDTO> mapCustomerUpdateException(CustomerUpdateException ex) {
         final var response = new ExceptionResponseDTO(ex.getMessage(), Response.Status.BAD_REQUEST.getStatusCode(), LocalDateTime.now());
         logger.error("(updateCustomer) response: %s", response, ex);
+        return RestResponse.status(Response.Status.BAD_REQUEST, response);
+    }
+
+    @ServerExceptionMapper(priority = 1)
+    public RestResponse<ExceptionResponseDTO> mapCustomerDeleteException(CustomerDeleteException ex) {
+        final var response = new ExceptionResponseDTO(ex.getMessage(), Response.Status.BAD_REQUEST.getStatusCode(), LocalDateTime.now());
+        logger.error("(deleteCustomer) response: %s", response, ex);
         return RestResponse.status(Response.Status.BAD_REQUEST, response);
     }
 
