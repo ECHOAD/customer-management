@@ -1,9 +1,11 @@
 package customer.queries;
 
+import application.queries.GetCustomerQueryHandler;
+import application.queries.GetCustomersQuery;
 import customer.factories.CustomerFactory;
-import customer.dto.CustomerResponseDTO;
-import customer.dto.PaginatedResponse;
-import customer.repository.CustomerPanacheRepository;
+import interfaces.dto.CustomerResponseDTO;
+import interfaces.dto.PaginatedResponse;
+import infrastructure.repository.CustomerPanacheRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

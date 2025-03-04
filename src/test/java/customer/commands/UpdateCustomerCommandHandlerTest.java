@@ -1,15 +1,18 @@
 package customer.commands;
 
-import customer.domain.Customer;
-import customer.dto.CustomerResponseDTO;
-import customer.exception.CustomerUpdateException;
+import application.commands.UpdateCustomerCommand;
+import application.commands.UpdateCustomerCommandHandler;
+import application.commands.UpdateCustomerRequestDTO;
+import domain.Customer;
+import interfaces.dto.CustomerResponseDTO;
+import domain.exceptions.CustomerUpdateException;
 import customer.factories.CustomerFactory;
-import customer.repository.CustomerPanacheRepository;
-import external.client.country.dto.CountryDemonymDto;
-import external.client.country.dto.CountryDto;
-import external.client.country.dto.CountryName;
-import external.client.country.service.CountryService;
-import external.client.country.service.CountryServiceImpl;
+import infrastructure.repository.CustomerPanacheRepository;
+import infrastructure.country.dto.CountryDemonymDto;
+import infrastructure.country.dto.CountryDto;
+import infrastructure.country.dto.CountryName;
+import infrastructure.country.service.CountryService;
+import infrastructure.country.service.CountryServiceImpl;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

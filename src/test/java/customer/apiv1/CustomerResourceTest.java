@@ -1,11 +1,14 @@
 package customer.apiv1;
 
-import customer.api.v1.CustomerResource;
-import customer.commands.*;
-import customer.dto.CustomerResponseDTO;
-import customer.dto.PaginatedResponse;
-import customer.queries.GetCustomerQueryById;
-import customer.queries.GetCustomersQuery;
+import application.commands.CreateCustomerCommand;
+import application.commands.DeleteCustomerCommand;
+import application.commands.UpdateCustomerCommand;
+import application.commands.UpdateCustomerRequestDTO;
+import interfaces.api.v1.CustomerResource;
+import interfaces.dto.CustomerResponseDTO;
+import interfaces.dto.PaginatedResponse;
+import application.queries.GetCustomerQueryById;
+import application.queries.GetCustomersQuery;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import mediator.Mediator;

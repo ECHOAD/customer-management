@@ -1,7 +1,7 @@
 package filters;
 
-import exceptions.ExceptionResponseDTO;
-import external.client.country.exceptions.CountryClientException;
+import interfaces.dto.ExceptionResponseDTO;
+import infrastructure.country.exceptions.CountryClientException;
 import jakarta.ws.rs.core.Response;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.reactive.RestResponse;

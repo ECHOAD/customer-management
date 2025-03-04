@@ -1,10 +1,10 @@
 package filters;
 
-import customer.exception.CustomerCreationException;
-import customer.exception.CustomerDeleteException;
-import customer.exception.CustomerUpdateException;
-import exceptions.ExceptionResponseDTO;
-import exceptions.InternalServerErrorException;
+import domain.exceptions.CustomerCreationException;
+import domain.exceptions.CustomerDeleteException;
+import domain.exceptions.CustomerUpdateException;
+import interfaces.dto.ExceptionResponseDTO;
+import infrastructure.exceptions.InternalServerErrorException;
 import jakarta.ws.rs.core.Response;
 import org.jboss.resteasy.reactive.RestResponse;
 import org.jboss.resteasy.reactive.server.ServerExceptionMapper;

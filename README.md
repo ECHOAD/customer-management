@@ -3,6 +3,67 @@
 ## Description
 This project consists of developing a RESTful service for efficient customer management. The company faces difficulties in adding, updating, deleting, and querying customer information quickly and securely. The proposed solution enables CRUD operations on the customer list through a uniform and easy-to-use interface.
 
+
+## Project Architecture and Design Decisions
+
+This project adheres to Clean Architecture principles, ensuring a clear separation of concerns across application layers. Key design decisions and diagrams are provided to visualize project structure, dependencies, and component interactions.
+
+![Clean Architecture Design](https://kroki.io/mermaid/svg/eNpdkEtuwyAQhvc5xRwgUW9QycHOq42aptmhLKgzcZBsoAyoscThi8FJm7KAAf7_m0djhbnAoZxAXAVfK4f2LGqkI8xmz6G6Gk1IUOzWUygPbzSF6lqjcVKrGG-FMWgpwJwXxrSyFsPHMcP-A2CPpL2N7AAsZjpbQc762nmL2TJPFqaVE1IRzD1JhUTwqhtZByh5qbv481e8EurUDvzf9LBo9XeAim_xJIXTNuvLpL8zK-Wkk0MtC848Od3hg_AGLoUTUNSx6ihd3qV7jH3JCO-ziY3dxvEp0cJHTw47gmGejU1lBVhxpr1ytmetROWycZmMuzhFSS5lC7Dmw_kpaJxL9VAR010XQ4K4wbtHm7rY8Nv70_iWvZvk3eOXx8hPDKmaAC83fcba5OrHy3HyA2Gws8I)
+
+
+
+1. **Application Layer (application)**
+   - **Responsibility:** 
+     - Orchestrates business logic.
+     - Contains commands and queries, decoupled from data persistence details.
+   - **Components:**
+     - **Commands:** Write operations (e.g., CreateCustomerCommand, UpdateCustomerCommand) with handlers for execution.
+     - **Queries:** Read operations (e.g., GetCustomerQuery) with handlers to return data.
+     - **Interaction:** Interfaces with infrastructure services to complete operations without direct database knowledge.
+
+2. **Domain Layer (domain)**
+   - **Responsibility:** 
+     - Focuses on the business model, defining business objects and rules.
+   - **Components:**
+     - **Entities:** Core business concepts (e.g., Customer).
+     - **Business Logic:** Validations and entity-specific behaviors.
+
+3. **Interface Layer (interfaces)**
+   - **Responsibility:** 
+     - Exposes external interfaces for application interaction.
+   - **Components:**
+     - **API REST:** API resources mapping HTTP requests to application operations (e.g., CustomerResource).
+     - **DTOs:** Data Transfer Objects for inter-layer communication.
+     - **Exceptions:** Domain-specific exceptions for consistent error communication (e.g., CustomerCreationException).
+
+4. **Infrastructure Layer (infrastructure)**
+   - **Responsibility:** 
+     - Contains implementation details and external resource dependencies.
+   - **Components:**
+     - **Repositories:** Data persistence interface implementations (e.g., CustomerPanacheRepository).
+     - **External Services:** Third-party API integrations (e.g., CountryService).
+     - **Exception Handling:** Manages infrastructure-related exceptions.
+
+5. **Mediator Layer (mediator)**
+   - **Responsibility:** 
+     - Facilitates command/query communication without direct coupling.
+   - **Components:**
+     - **Mediator:** Orchestrates command/query execution for decoupled system communication.
+
+6. **Filters Layer (filters)**
+   - **Responsibility:** 
+     - Manages cross-cutting concerns like global exception handling and HTTP response manipulation.
+   - **Components:**
+     - **Filters:** Centralized management of logging and error handling (e.g., CustomerExceptionMapper, LoggingFilter).
+
+
+## Component Overview
+![Component Overview](https://kroki.io/mermaid/svg/eNpNjjEOwyAMRfecggvkCpFIgKhSu3S1MliUtEhpQA6RevwSzICn5y____0mjB9xf3Yij4TbnhytaN2xFGUEGePmLSYfdpYmUOGLvm4qW1bCI9Fp00mOVQ3GbzmpphjQP-vilVGVGR7u5TEFWjquFn0_iJFLC08Nz2wqrBrW_ENh0zB7TeOV9f4PL7U5rg)
+
+## Flow of a request
+![Flow of a request](https://kroki.io/mermaid/svg/eNqFkDFuwzAMRfeeghcosmvI4gzJ1tq5AOt8tARkSaWoFLl9FTsGEhtpNUiC-D_5nzK-C0KPnfCn8vBCdSVWk14SB6PGC4Ktn0u2OEBb5Fi0x1NBBz3LH_UWKWaxqJeVZMfGH5wn77hNYV632-V4R_vj8Y3aK0ye0i4ld65bJkcNe0-cksakwgZq4jBwOG3eC_RC-3r10Id2N-9DhpnA0SEYlHujH7EvWrCtDbXLDOmq2lRwxqarJYz0_06e6au3aKhHLv45_vh7jjqE01WaYqif-wsJbbUh)
+
+
 ## Features
 - **Complete customer management**: Allows creation, updating, deletion, and retrieval of customers.
 - **Data validation**: Implements validation mechanisms to ensure data integrity and reliability.

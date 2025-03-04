@@ -1,9 +1,11 @@
 package customer.commands;
 
 
-import customer.exception.CustomerDeleteException;
+import application.commands.DeleteCustomerCommand;
+import application.commands.DeleteCustomerCommandHandler;
+import domain.exceptions.CustomerDeleteException;
 import customer.factories.CustomerFactory;
-import customer.repository.CustomerPanacheRepository;
+import infrastructure.repository.CustomerPanacheRepository;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;

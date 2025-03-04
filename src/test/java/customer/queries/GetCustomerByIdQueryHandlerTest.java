@@ -1,9 +1,11 @@
 package customer.queries;
 
-import customer.dto.CustomerResponseDTO;
-import customer.exception.CustomerNotFoundException;
+import application.queries.GetCustomerByIdQueryHandler;
+import application.queries.GetCustomerQueryById;
+import interfaces.dto.CustomerResponseDTO;
+import domain.exceptions.CustomerNotFoundException;
 import customer.factories.CustomerFactory;
-import customer.repository.CustomerPanacheRepository;
+import infrastructure.repository.CustomerPanacheRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;

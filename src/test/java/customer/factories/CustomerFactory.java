@@ -1,6 +1,6 @@
 package customer.factories;
 
-import customer.domain.Customer;
+import domain.Customer;
 
 /**
  * A factory class for creating new instances of the Customer class.

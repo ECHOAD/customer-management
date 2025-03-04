@@ -1,13 +1,15 @@
 package customer.commands;
 
-import customer.dto.CustomerResponseDTO;
-import customer.exception.CustomerCreationException;
-import external.client.country.dto.CountryDemonymDto;
-import external.client.country.dto.CountryDto;
-import external.client.country.dto.CountryName;
-import external.client.country.exceptions.CountryClientException;
-import external.client.country.service.CountryService;
-import external.client.country.service.CountryServiceImpl;
+import application.commands.CreateCustomerCommand;
+import application.commands.CreateCustomerCommandHandler;
+import interfaces.dto.CustomerResponseDTO;
+import domain.exceptions.CustomerCreationException;
+import infrastructure.country.dto.CountryDemonymDto;
+import infrastructure.country.dto.CountryDto;
+import infrastructure.country.dto.CountryName;
+import infrastructure.country.exceptions.CountryClientException;
+import infrastructure.country.service.CountryService;
+import infrastructure.country.service.CountryServiceImpl;
 import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
