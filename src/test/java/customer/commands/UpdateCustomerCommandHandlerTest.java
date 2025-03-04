@@ -45,7 +45,9 @@ public class UpdateCustomerCommandHandlerTest {
 
         customerPanacheRepository.persistAndFlush(CustomerFactory
                 .newInstance(null,"Adrian",
+                        "",
                         "Estevez",
+                        "",
                         "adrian@test.com",
                         "Street 123",
                         "1234567890",

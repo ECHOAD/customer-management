@@ -59,8 +59,8 @@ public class CreateCustomerCommandHandlerTest {
         CreateCustomerCommand command = new CreateCustomerCommand();
         command.setFirstName("John");
         command.setMiddleName("Smith");
-        command.setFirstLastName("Doe");
-        command.setSecondLastName("Doe");
+        command.setFirstSurname("Doe");
+        command.setSecondSurname("Doe");
         command.setEmail("john@test.com");
         command.setAddress("Street 123");
         command.setPhoneNumber("1234567890");
@@ -73,8 +73,8 @@ public class CreateCustomerCommandHandlerTest {
         assertNotNull(result, "The result should not be null");
         assertEquals("John", result.firstName(), "First name should be John");
         assertEquals("Smith", result.middleName(), "Middle name should be Smith");
-        assertEquals("Doe", result.firstLastName(), "First last name should be Doe");
-        assertEquals("Doe", result.secondLastName(), "Second last name should be Doe");
+        assertEquals("Doe", result.firstSurname(), "First last name should be Doe");
+        assertEquals("Doe", result.secondSurname(), "Second last name should be Doe");
         assertEquals("john@test.com", result.email(), "Email should be john@test.com");
         assertEquals("Street 123", result.address(), "Address should be Street 123");
         assertEquals("1234567890", result.phoneNumber(), "Phone number should be 1234567890");
@@ -89,8 +89,8 @@ public class CreateCustomerCommandHandlerTest {
         CreateCustomerCommand command = new CreateCustomerCommand();
         command.setFirstName("Jane");
         command.setMiddleName("Doe");
-        command.setFirstLastName("Smith");
-        command.setSecondLastName("Smith");
+        command.setFirstSurname("Smith");
+        command.setSecondSurname("Smith");
         command.setEmail("jane@test.com");
         command.setAddress("Avenue 456");
         command.setPhoneNumber("0987654321");

@@ -32,7 +32,9 @@ public class DeleteCustomerCommandHandlerTest {
 
         customerPanacheRepository.persistAndFlush(CustomerFactory
                 .newInstance(null, "Adrian",
+                        "Enrique",
                         "Estevez",
+                        "",
                         "adrian@test.com",
                         "Street 123",
                         "1234567890",

@@ -30,11 +30,11 @@ public class CreateCustomerCommand implements Command<CustomerResponseDTO> {
     @Schema(description = "Customer first last name", examples = "Doe")
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z ]*$", message = "First last name must be only characters")
-    String firstLastName;
+    String firstSurname;
 
     @Schema(description = "Customer second last name", examples = "Doe")
     @Pattern(regexp = "^[a-zA-Z ]*$", message = "Second last name must be only characters")
-    String secondLastName;
+    String secondSurname;
 
     @Schema(description = "Customer email", examples = "john.doe@example.com")
     @Email

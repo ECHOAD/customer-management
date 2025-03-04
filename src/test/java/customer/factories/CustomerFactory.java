@@ -11,7 +11,9 @@ public final class CustomerFactory {
      * Creates a new instance of Customer with the provided details.
      *
      * @param firstName     the first name of the customer
-     * @param firstLastName the first last name of the customer
+     * @param middleName    the middle name of the customer
+     * @param firstSurname  the first last name of the customer
+     * @param secondSurname the second last name of the customer
      * @param email         the email address of the customer
      * @param address       the address of the customer
      * @param phoneNumber   the phone number of the customer
@@ -22,7 +24,9 @@ public final class CustomerFactory {
     public static Customer newInstance(
             Long id,
             String firstName,
-            String firstLastName,
+            String middleName,
+            String firstSurname,
+            String secondSurname,
             String email,
             String address,
             String phoneNumber,
@@ -31,7 +35,9 @@ public final class CustomerFactory {
         return Customer.builder()
                 .id(id)
                 .firstName(firstName)
-                .firstLastName(firstLastName)
+                .middleName(middleName)
+                .firstSurname(firstSurname)
+                .secondSurname(secondSurname)
                 .email(email)
                 .address(address)
                 .phoneNumber(phoneNumber)

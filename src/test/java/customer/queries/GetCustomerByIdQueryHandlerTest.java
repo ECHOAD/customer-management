@@ -30,7 +30,9 @@ public class GetCustomerByIdQueryHandlerTest {
 
         customerPanacheRepository.persistAndFlush(CustomerFactory
                 .newInstance(null,"Adrian",
+                        "",
                         "Estevez",
+                        "",
                         "adrian@test.com",
                         "Street 123",
                         "1234567890",
@@ -39,7 +41,11 @@ public class GetCustomerByIdQueryHandlerTest {
 
         customerPanacheRepository.persistAndFlush(CustomerFactory
                 .newInstance(null,"John",
+                        "",
+
                         "Doe",
+                        "",
+
                         "john@test.com",
                         "Street 123",
                         "0928372810",
@@ -48,7 +54,9 @@ public class GetCustomerByIdQueryHandlerTest {
 
         customerPanacheRepository.persistAndFlush(CustomerFactory
                 .newInstance(null,"Jane",
+                        "",
                         "Smith",
+                        "",
                         "jane@test.com",
                         "Street 123",
                         "3029302910",

@@ -12,8 +12,8 @@ public final class CustomerMapper {
                 customer.getId(),
                 customer.getFirstName(),
                 customer.getMiddleName(),
-                customer.getFirstLastName(),
-                customer.getSecondLastName(),
+                customer.getFirstSurname(),
+                customer.getSecondSurname(),
                 customer.getEmail(),
                 customer.getAddress(),
                 customer.getPhoneNumber(),
@@ -24,7 +24,7 @@ public final class CustomerMapper {
 
     public static Customer toEntity(final CreateCustomerCommand createCustomerCommand) {
         return new Customer(null, createCustomerCommand.getFirstName(), createCustomerCommand.getMiddleName(),
-                createCustomerCommand.getFirstLastName(), createCustomerCommand.getSecondLastName(), createCustomerCommand.getEmail(),
+                createCustomerCommand.getFirstSurname(), createCustomerCommand.getSecondSurname(), createCustomerCommand.getEmail(),
                  createCustomerCommand.getPhoneNumber(), createCustomerCommand.getAddress(), createCustomerCommand.getCountry(), null);
     }
 }

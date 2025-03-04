@@ -35,10 +35,10 @@ public class Customer implements Serializable {
     private String middleName;
 
     @Column(name = "first_surname", nullable = false, length = 40)
-    private String firstLastName;
+    private String firstSurname;
 
     @Column(name = "second_surname", length = 40)
-    private String secondLastName;
+    private String secondSurname;
 
     @Column(name = "email", nullable = false)
     private String email;
