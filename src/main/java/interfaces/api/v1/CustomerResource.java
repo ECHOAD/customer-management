@@ -30,6 +30,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
 import mediator.Mediator;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
@@ -45,15 +46,17 @@ import java.net.URI;
 public class CustomerResource {
     private final Mediator mediator;
 
+
     @Inject
     public CustomerResource(Mediator mediator) {
         this.mediator = mediator;
     }
 
     @GET
+    @Operation(summary = "Get all customers", description = "Returns a paginated list of customers.")
     @APIResponse(responseCode = "200", description = "A list of customers",
-                 content = @Content(mediaType = MediaType.APPLICATION_JSON,
-                                    schema = @Schema(implementation = PaginatedResponse.class)))
+            content = @Content(mediaType = MediaType.APPLICATION_JSON,
+                    schema = @Schema(implementation = PaginatedResponse.class)))
     @APIResponse(responseCode = "400", description = "Invalid input")
     public Response getCustomers(@BeanParam GetCustomersQuery getCustomersQuery) {
         return Response.ok(mediator.send(getCustomersQuery)).build();
@@ -61,9 +64,10 @@ public class CustomerResource {
 
     @GET
     @Path("/{id}")
+    @Operation(summary = "Get a customer by ID", description = "Retrieves a specific customer by their unique identifier.")
     @APIResponse(responseCode = "200", description = "A customer",
             content = @Content(mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(implementation = PaginatedResponse.class)))
+                    schema = @Schema(implementation = CustomerResponseDTO.class)))
     @APIResponse(responseCode = "400", description = "Invalid input")
     public Response getCustomerById(@BeanParam GetCustomerQueryById getCustomerQueryById) {
         return Response.ok(mediator.send(getCustomerQueryById)).build();

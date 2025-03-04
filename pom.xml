@@ -35,11 +35,6 @@
             <artifactId>quarkus-hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkiverse.jpastreamer</groupId>
-            <artifactId>quarkus-jpastreamer</artifactId>
-            <version>3.0.3.Final</version>
-        </dependency>
-        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-smallrye-openapi</artifactId>
         </dependency>
