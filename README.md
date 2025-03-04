@@ -4,6 +4,61 @@
 This project consists of developing a RESTful service for efficient customer management. The company faces difficulties in adding, updating, deleting, and querying customer information quickly and securely. The proposed solution enables CRUD operations on the customer list through a uniform and easy-to-use interface.
 
 
+### Steps to Run the Project
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/user/customer-management.git
+   cd customer-management
+   ```
+2. **Build the project:**
+   ```sh
+   mvn clean install
+   ```
+3. Set your environment variables:
+   ```sh
+   export QUARKUS_PROFILE=dev
+   export DATABASE_URL=jdbc:postgresql://localhost:5432/customer_management
+   export DATABASE_USER=postgres....
+   ```
+4. **Run the application:**
+   ```sh
+   mvn quarkus:dev
+   ```
+
+### or
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/user/customer-management.git
+   cd customer-management
+   ```
+2. **Make sure you have Docker installed on your system.**
+3. **Run the deployment script:**
+   ```sh
+   ./deploy.sh [dev|stg]
+   ```
+
+   where [dev|stg] is the environment you want to deploy to.
+4. **Access the application:**
+   Open your browser and navigate to http://localhost:8080/customers
+5. **Stop the application:**
+   ```sh
+   docker-compose down
+   ```
+
+## API Endpoints
+The API exposes the following endpoints for customer management:
+
+| Method  | Endpoint                         | Description |
+|---------|----------------------------------|-------------|
+| POST    | `/customers`                     | Creates a new customer. |
+| GET     | `/customers`                     | Retrieves all customers. |
+| GET     | `/customers?country={country}`   | Retrieves customers by country. |
+| GET     | `/customers/{id}`                | Retrieves a customer by ID. |
+| PUT     | `/customers/{id}`                | Updates an existing customer. |
+| DELETE  | `/customers/{id}`                | Deletes a customer by ID. |
+
+
 ## Project Architecture and Design Decisions
 
 This project adheres to Clean Architecture principles, ensuring a clear separation of concerns across application layers. Key design decisions and diagrams are provided to visualize project structure, dependencies, and component interactions.
@@ -93,32 +148,6 @@ This project adheres to Clean Architecture principles, ensuring a clear separati
 - Maven 3.8+
 - Docker (optional, for local PostgreSQL database)
 
-### Steps to Run the Project
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/user/customer-management.git
-   cd customer-management
-   ```
-2. **Build the project:**
-   ```sh
-   mvn clean install
-   ```
-3. **Run the application:**
-   ```sh
-   mvn quarkus:dev
-   ```
-
-## API Endpoints
-The API exposes the following endpoints for customer management:
-
-| Method  | Endpoint                         | Description |
-|---------|----------------------------------|-------------|
-| POST    | `/customers`                     | Creates a new customer. |
-| GET     | `/customers`                     | Retrieves all customers. |
-| GET     | `/customers?country={country}`   | Retrieves customers by country. |
-| GET     | `/customers/{id}`                | Retrieves a customer by ID. |
-| PUT     | `/customers/{id}`                | Updates an existing customer. |
-| DELETE  | `/customers/{id}`                | Deletes a customer by ID. |
 
 ## API Documentation
 The API documentation is available in Swagger UI when the application is running:
