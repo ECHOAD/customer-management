@@ -4,24 +4,21 @@ import application.commands.UpdateCustomerCommand;
 import application.commands.UpdateCustomerCommandHandler;
 import application.commands.UpdateCustomerRequestDTO;
 import domain.Customer;
+import infrastructure.country.exceptions.CountryClientException;
 import interfaces.dto.CustomerResponseDTO;
 import domain.exceptions.CustomerUpdateException;
 import customer.factories.CustomerFactory;
 import infrastructure.repository.CustomerPanacheRepository;
-import infrastructure.country.dto.CountryDemonymDto;
-import infrastructure.country.dto.CountryDto;
-import infrastructure.country.dto.CountryName;
 import infrastructure.country.service.CountryService;
 import infrastructure.country.service.CountryServiceImpl;
+import io.quarkus.test.TestTransaction;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -34,15 +31,21 @@ public class UpdateCustomerCommandHandlerTest {
 
     CountryService countryService;
 
-    @Inject
     UpdateCustomerCommandHandler sut;
 
     @BeforeEach
-    @Transactional
     void setup() {
+        countryService = mock(CountryServiceImpl.class);
 
+
+        when(countryService.findDemonymByCountryCode("US")).thenReturn("American");
+        when(countryService.findDemonymByCountryCode("DO")).thenReturn("Dominican");
+
+        sut = new UpdateCustomerCommandHandler(customerPanacheRepository,countryService);
+    }
+
+    private void loadData() {
         customerPanacheRepository.deleteAll();
-
         customerPanacheRepository.persistAndFlush(CustomerFactory
                 .newInstance(null,"Adrian",
                         "",
@@ -53,28 +56,15 @@ public class UpdateCustomerCommandHandlerTest {
                         "1234567890",
                         "DO",
                         "Dominican"));
-
-        countryService = mock(CountryServiceImpl.class);
-
-        // Simulated country data
-        CountryDto doCountryDto = CountryDto.builder()
-                .name(CountryName.builder().official("Dominican Republic").common("Dominican Republic").build())
-                .demonyms(Map.of("en", new CountryDemonymDto("Dominican", "Dominican")))
-                .build();
-
-        CountryDto usCountryDto = CountryDto.builder()
-                .name(CountryName.builder().official("United States").common("United States").build())
-                .demonyms(Map.of("en", new CountryDemonymDto("American", "Americans")))
-                .build();
-
-        when(countryService.getCountryByCode("DO")).thenReturn(doCountryDto);
-        when(countryService.getCountryByCode("US")).thenReturn(usCountryDto);
     }
 
     @Test
+    @TestTransaction
     public void testUpdateCustomerWithoutChangingCountry() {
         // Arrange
+        loadData();
         Customer outDatedCustomer = customerPanacheRepository.findAll().firstResult();
+        customerPanacheRepository.getEntityManager().detach(outDatedCustomer);
 
         UpdateCustomerRequestDTO requestDTO = new UpdateCustomerRequestDTO();
         requestDTO.setId(outDatedCustomer.getId());
@@ -83,7 +73,6 @@ public class UpdateCustomerCommandHandlerTest {
         requestDTO.setPhoneNumber("0000000001");
         requestDTO.setCountry("DO");
         UpdateCustomerCommand command = new UpdateCustomerCommand(outDatedCustomer.getId(), requestDTO);
-
 
         // Act
         CustomerResponseDTO result = sut.apply(command);
@@ -96,9 +85,12 @@ public class UpdateCustomerCommandHandlerTest {
     }
 
     @Test
+    @TestTransaction
     public void testUpdateCustomerWhenCountryIsChanged() {
         // Arrange
+        loadData();
         Customer outDatedCustomer = customerPanacheRepository.findAll().firstResult();
+        customerPanacheRepository.getEntityManager().detach(outDatedCustomer);
 
         UpdateCustomerRequestDTO requestDTO = new UpdateCustomerRequestDTO();
         requestDTO.setId(outDatedCustomer.getId());
@@ -121,8 +113,10 @@ public class UpdateCustomerCommandHandlerTest {
 
 
     @Test
+    @TestTransaction
     public void testUpdateCustomerWithInvalidId() {
         // Arrange
+        loadData();
         UpdateCustomerRequestDTO requestDTO = new UpdateCustomerRequestDTO();
         requestDTO.setId(2L);
         requestDTO.setEmail("test@test.com");
@@ -136,8 +130,10 @@ public class UpdateCustomerCommandHandlerTest {
     }
 
     @Test
+    @TestTransaction
     public void testUpdateCustomerWithInvalidCountry() {
         // Arrange
+        loadData();
         UpdateCustomerRequestDTO requestDTO = new UpdateCustomerRequestDTO();
         requestDTO.setId(1L);
         requestDTO.setEmail("test@test.com");
@@ -145,6 +141,9 @@ public class UpdateCustomerCommandHandlerTest {
         requestDTO.setPhoneNumber("0000000001");
         requestDTO.setCountry("XX");
         UpdateCustomerCommand command = new UpdateCustomerCommand(1L, requestDTO);
+
+
+        when(countryService.getCountryByCode(eq("XX"))).thenThrow(CountryClientException.class);
 
         // Act & Assert
         assertThrows(CustomerUpdateException.class, () -> sut.apply(command), "Expected CustomerUpdateException");

@@ -12,15 +12,12 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class CustomerResourceIT {
 
-
-
-
     @Test
     void testCreateCustomer() {
         given()
                 .contentType(ContentType.JSON)
-                .body("{\"firstName\": \"Adrian\", \"middleName\": \"\", \"firstLastName\": \"Estevez\", " +
-                        "\"secondLastName\": \"Doe\", \"email\":" +
+                .body("{\"firstName\": \"Adrian\", \"middleName\": \"\", \"firstSurname\": \"Estevez\", " +
+                        "\"secondSurname\": \"Doe\", \"email\":" +
                         " \"adrian@example.com\", \"address\": \"Street 123\", \"phoneNumber\": \"1234567890\", " +
                         "\"country\": \"DO\"}")
                 .when().post("/api/v1/customers")
@@ -54,10 +51,10 @@ public class CustomerResourceIT {
     void testGetCustomerById() {
         long newCustomerId = given()
                 .contentType(ContentType.JSON)
-                .body("{\"firstName\": \"Customer\", \"middleName\": \"To\", \"firstLastName\": \"Be\", " +
-                        "\"secondLastName\": \"Fetched\", \"email\":" +
+                .body("{\"firstName\": \"Customer\", \"middleName\": \"To\", \"firstSurname\": \"Be\", " +
+                        "\"secondSurname\": \"Fetched\", \"email\":" +
                         " \"customer@tobe.com\", \"address\": \"Street 123\", \"phoneNumber\": \"0000000002\", " +
-                        "\"country\": \"US\"}")
+                        "\"country\": \"DO\"}")
                 .when().post("/api/v1/customers")
                 .then()
                 .statusCode(201)
@@ -71,7 +68,7 @@ public class CustomerResourceIT {
                 .statusCode(200).
                 body("id", equalTo((int) newCustomerId)).
                 body("firstName", equalTo("Customer"))
-                .body("demonym", equalTo("American"));
+                .body("demonym", equalTo("Dominican"));
 
     }
 
@@ -81,8 +78,8 @@ public class CustomerResourceIT {
     void testUpdateCustomer() {
         long newCustomerId = given()
                 .contentType(ContentType.JSON)
-                .body("{\"firstName\": \"John\", \"middleName\": \"\", \"firstLastName\": \"Doe\", " +
-                        "\"secondLastName\": \"Doe\", \"email\":" +
+                .body("{\"firstName\": \"John\", \"middleName\": \"\", \"firstSurname\": \"Doe\", " +
+                        "\"secondSurname\": \"Doe\", \"email\":" +
                         " \"john@example.com\", \"address\": \"Street 123\", \"phoneNumber\": \"1234567890\", " +
                         "\"country\": \"DO\"}")
                 .when().post("/api/v1/customers")
@@ -106,8 +103,8 @@ public class CustomerResourceIT {
 
         long newCustomerId = given()
                 .contentType(ContentType.JSON)
-                .body("{\"firstName\": \"Customer\", \"middleName\": \"To\", \"firstLastName\": \"Be\", " +
-                        "\"secondLastName\": \"Deleted\", \"email\":" +
+                .body("{\"firstName\": \"Customer\", \"middleName\": \"To\", \"firstSurname\": \"Be\", " +
+                        "\"secondSurname\": \"Deleted\", \"email\":" +
                         " \"customer@deleted.com\", \"address\": \"Street 123\", \"phoneNumber\": \"1234567890\", " +
                         "\"country\": \"DO\"}")
                 .when().post("/api/v1/customers")

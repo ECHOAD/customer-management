@@ -2,11 +2,9 @@ package customer.commands;
 
 import application.commands.CreateCustomerCommand;
 import application.commands.CreateCustomerCommandHandler;
+import infrastructure.repository.CustomerPanacheRepository;
 import interfaces.dto.CustomerResponseDTO;
 import domain.exceptions.CustomerCreationException;
-import infrastructure.country.dto.CountryDemonymDto;
-import infrastructure.country.dto.CountryDto;
-import infrastructure.country.dto.CountryName;
 import infrastructure.country.exceptions.CountryClientException;
 import infrastructure.country.service.CountryService;
 import infrastructure.country.service.CountryServiceImpl;
@@ -18,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -27,10 +24,11 @@ import static org.mockito.Mockito.when;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @QuarkusTest
 public class CreateCustomerCommandHandlerTest {
-
     CountryService countryService;
 
     @Inject
+    CustomerPanacheRepository customerPanacheRepository;
+
     CreateCustomerCommandHandler sut;
 
     @BeforeEach
@@ -38,18 +36,10 @@ public class CreateCustomerCommandHandlerTest {
         countryService = mock(CountryServiceImpl.class);
 
         // Simulated country data
-        CountryDto doCountryDto = CountryDto.builder()
-                .name(CountryName.builder().official("Dominican Republic").common("Dominican Republic").build())
-                .demonyms(Map.of("en", new CountryDemonymDto("Dominican", "Dominican")))
-                .build();
+        when(countryService.findDemonymByCountryCode("DO")).thenReturn("Dominican");
+        when(countryService.findDemonymByCountryCode("US")).thenReturn("American");
 
-        CountryDto usCountryDto = CountryDto.builder()
-                .name(CountryName.builder().official("United States").common("United States").build())
-                .demonyms(Map.of("en", new CountryDemonymDto("American", "Americans")))
-                .build();
-
-        when(countryService.getCountryByCode("DO")).thenReturn(doCountryDto);
-        when(countryService.getCountryByCode("US")).thenReturn(usCountryDto);
+        sut = new CreateCustomerCommandHandler(customerPanacheRepository,countryService);
     }
 
     @Test
@@ -96,7 +86,7 @@ public class CreateCustomerCommandHandlerTest {
         command.setPhoneNumber("0987654321");
         command.setCountry("XX");
 
-        when(countryService.getCountryByCode("XX")).thenThrow(CountryClientException.class);
+        when(countryService.findDemonymByCountryCode("XX")).thenThrow(CountryClientException.class);
         // Act / Assert
         assertThrows(CustomerCreationException.class, () -> sut.apply(command), "Expected CustomerCreationException");
 
