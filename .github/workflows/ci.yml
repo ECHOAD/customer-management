@@ -23,8 +23,3 @@ jobs:
 
       - name: Build
         run: ./mvnw verify -B
-
-
-      - name: Run tests
-        run: ./mvnw test
-
