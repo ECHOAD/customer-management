@@ -1,5 +1,8 @@
 # Customer Management System
 
+## Available languages
+[Spanish](./README-es.md)
+
 ## Description
 This project consists of developing a RESTful service for efficient customer management. The company faces difficulties in adding, updating, deleting, and querying customer information quickly and securely. The proposed solution enables CRUD operations on the customer list through a uniform and easy-to-use interface.
 
