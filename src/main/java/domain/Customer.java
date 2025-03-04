@@ -28,31 +28,31 @@ public class Customer implements Serializable {
     @Column(name = "id", nullable = false, updatable = false, columnDefinition = "BIGINT")
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name", nullable = false, length = 40)
     private String firstName;
 
-    @Column(name = "middle_name")
+    @Column(name = "middle_name", length = 40)
     private String middleName;
 
-    @Column(name = "first_last_name", nullable = false)
+    @Column(name = "first_surname", nullable = false, length = 40)
     private String firstLastName;
 
-    @Column(name = "second_last_name")
+    @Column(name = "second_surname", length = 40)
     private String secondLastName;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "address", nullable = false)
-    private String address;
-
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
-    @Column(name = "country", nullable = false)
+    @Column(name = "address", nullable = false, length = 200)
+    private String address;
+
+    @Column(name = "country", nullable = false, length = 4)
     private String country;
 
-    @Column(name = "demonym", nullable = false)
+    @Column(name = "demonym", nullable = false, length = 40)
     private String demonym;
 
 }

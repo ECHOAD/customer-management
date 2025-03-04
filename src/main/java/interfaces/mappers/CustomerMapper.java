@@ -25,6 +25,6 @@ public final class CustomerMapper {
     public static Customer toEntity(final CreateCustomerCommand createCustomerCommand) {
         return new Customer(null, createCustomerCommand.getFirstName(), createCustomerCommand.getMiddleName(),
                 createCustomerCommand.getFirstLastName(), createCustomerCommand.getSecondLastName(), createCustomerCommand.getEmail(),
-                createCustomerCommand.getAddress(), createCustomerCommand.getPhoneNumber(), createCustomerCommand.getCountry(), null);
+                 createCustomerCommand.getPhoneNumber(), createCustomerCommand.getAddress(), createCustomerCommand.getCountry(), null);
     }
 }
